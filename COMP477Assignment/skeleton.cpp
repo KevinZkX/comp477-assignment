@@ -48,10 +48,10 @@ void Skeleton::save_key_frame()
 	for (unsigned i = 1; i < joints.size(); i++)
 	{
 		Eigen::Matrix4f temp_transform;
-		temp_transform << joints[i].local_t[0], joints[i].local_t[1], joints[i].local_t[2], joints[i].local_t[3],
-			joints[i].local_t[4], joints[i].local_t[5], joints[i].local_t[6], joints[i].local_t[7],
-			joints[i].local_t[8], joints[i].local_t[9], joints[i].local_t[10], joints[i].local_t[11],
-			joints[i].local_t[12], joints[i].local_t[13], joints[i].local_t[14], joints[i].local_t[15];
+		temp_transform << joints[i].local_t[0], joints[i].local_t[4], joints[i].local_t[8], joints[i].local_t[12],
+			joints[i].local_t[1], joints[i].local_t[5], joints[i].local_t[9], joints[i].local_t[13],
+			joints[i].local_t[2], joints[i].local_t[6], joints[i].local_t[10], joints[i].local_t[14],
+			joints[i].local_t[3], joints[i].local_t[7], joints[i].local_t[11], joints[i].local_t[15];
 		temp.push_back(temp_transform);
 	}
 	key_frame.push_back(temp);

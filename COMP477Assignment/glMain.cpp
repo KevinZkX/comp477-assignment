@@ -13,6 +13,7 @@
 #include <cstring>
 #include "skeleton.h"
 #include "defMesh.h"
+#include "euler.h"
 using namespace std;
 
 
@@ -162,7 +163,9 @@ void invertMatrix(const GLdouble * m, GLdouble * out)
 }
 
 void matrix_interpolation();
+void euler_interpolation();
 void quaternion_lerp();
+void quaternion_slerp();
 
 
 void pos(double *px, double *py, double *pz, const int x, const int y,
@@ -304,17 +307,20 @@ void handleKeyPress(unsigned char key, int x, int y)
 	}
 	case 'j':
 	{
-		if (_edit)
+		if (!_edit)
 		{
 			std::cout << "Speed up.\n";
+			myDefMesh.interval += 0.01;
 		}
 		break;
 	}
 	case 'k':
 	{
-		if (_edit)
+		if (!_edit)
 		{
 			std::cout << "Low down.\n";
+			myDefMesh.interval -= 0.01;
+			myDefMesh.interval <= 0 ? myDefMesh.interval = 0.01 : myDefMesh.interval = myDefMesh.interval;
 		}
 		break;
 	}
@@ -331,7 +337,8 @@ void handleKeyPress(unsigned char key, int x, int y)
 	{
 		if (!_edit)
 		{
-			std::cout << "";
+			std::cout << "euler interpolation\n";
+			euler_interpolation();
 		}
 		break;
 	}
@@ -348,7 +355,8 @@ void handleKeyPress(unsigned char key, int x, int y)
 	{
 		if (!_edit)
 		{
-			std::cout << "";
+			std::cout << "quaternion slerp\n";
+			quaternion_slerp();
 		}
 		break;
 	}
@@ -649,10 +657,10 @@ void matrix_interpolation()
 				temp = (temp1 - temp2) * (m * myDefMesh.interval) + temp2;
 				for (unsigned k = 0; k < 4; k++)
 				{
-					myDefMesh.mySkeleton.joints[j].local_t[k*4] = temp(k, 0);
-					myDefMesh.mySkeleton.joints[j].local_t[k*4+1] = temp(k, 1);
-					myDefMesh.mySkeleton.joints[j].local_t[k*4+2] = temp(k, 2);
-					myDefMesh.mySkeleton.joints[j].local_t[k*4+3] = temp(k, 3);
+					myDefMesh.mySkeleton.joints[j].local_t[k] = temp(k, 0);
+					myDefMesh.mySkeleton.joints[j].local_t[k+4] = temp(k, 1);
+					myDefMesh.mySkeleton.joints[j].local_t[k+8] = temp(k, 2);
+					myDefMesh.mySkeleton.joints[j].local_t[k+12] = temp(k, 3);
 				}
 			}
 		}
@@ -661,6 +669,46 @@ void matrix_interpolation()
 		display();
 		m++;
 	}
+}
+
+void euler_interpolation()
+{
+	int m = 0;
+	while (m * myDefMesh.interval < 1)
+	{
+		for (unsigned i = 0; i < myDefMesh.mySkeleton.key_frame.size() - 1; i++)
+		{
+			for (unsigned j = 0; j < myDefMesh.mySkeleton.key_frame[i].size(); j++)
+			{
+				Eigen::Matrix4f temp;
+				Eigen::Matrix4f temp1 = myDefMesh.mySkeleton.key_frame[i + 1][j].normalized();
+				Eigen::Matrix4f temp2 = myDefMesh.mySkeleton.key_frame[i][j].normalized();
+				EulerAngle euler1;
+				euler1.matrix_to_euler(temp1);
+				EulerAngle euler2;
+				euler2.matrix_to_euler(temp2);
+				float yaw_z, pitch_y, roll_x = 0;
+				pitch_y = (euler1.pitch_y - euler2.pitch_y) * (m * myDefMesh.interval) + euler2.pitch_y;
+				roll_x = (euler1.roll_x - euler2.roll_x) * (m * myDefMesh.interval) + euler2.roll_x;
+				yaw_z = (euler1.yaw_z - euler2.yaw_z) * (m * myDefMesh.interval) + euler2.yaw_z;
+				EulerAngle euler(roll_x, pitch_y, yaw_z);
+				euler.euler_to_eigen_matrix(temp);
+				
+				for (unsigned k = 0; k < 4; k++)
+				{
+					myDefMesh.mySkeleton.joints[j].local_t[k] = temp(k, 0);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 4] = temp(k, 1);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 8] = temp(k, 2);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 12] = temp(k, 3);
+				}
+			}
+		}
+		myDefMesh.mySkeleton.updateGlobal();
+		myDefMesh.updateVertices();
+		display();
+		m++;
+	}
+
 }
 
 Eigen::Quaternionf quaternion_minus(Eigen::Quaternionf temp1, Eigen::Quaternionf temp2)
@@ -697,9 +745,9 @@ void quaternion_lerp()
 				Eigen::Matrix3f temp_m3 = temp.toRotationMatrix();
 				for (unsigned k = 0; k < 3; k++)
 				{
-					myDefMesh.mySkeleton.joints[j].local_t[k * 4] = temp_m3(k, 0);
-					myDefMesh.mySkeleton.joints[j].local_t[k * 4 + 1] = temp_m3(k, 1);
-					myDefMesh.mySkeleton.joints[j].local_t[k * 4 + 2] = temp_m3(k, 2);
+					myDefMesh.mySkeleton.joints[j].local_t[k] = temp_m3(k, 0);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 4] = temp_m3(k, 1);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 8] = temp_m3(k, 2);
 				}
 				myDefMesh.mySkeleton.joints[j].local_t[3] = 0;
 				myDefMesh.mySkeleton.joints[j].local_t[7] = 0;
@@ -715,5 +763,42 @@ void quaternion_lerp()
 		display();
 		m++;
 	}
+}
+
+void quaternion_slerp()
+{
+	int m = 0;
+	myDefMesh.mySkeleton.key_frame_quaternion = myDefMesh.mySkeleton.matrix_to_quaternion(myDefMesh.mySkeleton.key_frame);
+	while (m * myDefMesh.interval < 1)
+	{
+		for (unsigned i = 0; i < myDefMesh.mySkeleton.key_frame_quaternion.size() - 1; i++)
+		{
+			for (unsigned j = 0; j < myDefMesh.mySkeleton.key_frame_quaternion[i].size(); j++)
+			{
+				Eigen::Quaternionf temp1 = myDefMesh.mySkeleton.key_frame_quaternion[i + 1][j].normalized();
+				Eigen::Quaternionf temp2 = myDefMesh.mySkeleton.key_frame_quaternion[i][j].normalized();
+				Eigen::Quaternionf temp = temp2.slerp(m * myDefMesh.interval,temp1);
+				Eigen::Matrix3f temp_m3 = temp.toRotationMatrix();
+				for (unsigned k = 0; k < 3; k++)
+				{
+					myDefMesh.mySkeleton.joints[j].local_t[k] = temp_m3(k, 0);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 4] = temp_m3(k, 1);
+					myDefMesh.mySkeleton.joints[j].local_t[k + 8] = temp_m3(k, 2);
+				}
+				myDefMesh.mySkeleton.joints[j].local_t[3] = 0;
+				myDefMesh.mySkeleton.joints[j].local_t[7] = 0;
+				myDefMesh.mySkeleton.joints[j].local_t[11] = 0;
+				myDefMesh.mySkeleton.joints[j].local_t[12] = 0;
+				myDefMesh.mySkeleton.joints[j].local_t[13] = 0;
+				myDefMesh.mySkeleton.joints[j].local_t[14] = 0;
+				myDefMesh.mySkeleton.joints[j].local_t[15] = 1;
+			}
+		}
+		myDefMesh.mySkeleton.updateGlobal();
+		myDefMesh.updateVertices();
+		display();
+		m++;
+	}
+
 }
 

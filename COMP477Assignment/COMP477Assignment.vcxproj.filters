@@ -50,6 +50,9 @@
     <ClInclude Include="splitstring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="euler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="skeleton.out" />

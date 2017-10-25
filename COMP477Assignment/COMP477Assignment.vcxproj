@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defMesh.h" />
+    <ClInclude Include="euler.h" />
     <ClInclude Include="glm.h" />
     <ClInclude Include="simpleMath.h" />
     <ClInclude Include="skeleton.h" />
