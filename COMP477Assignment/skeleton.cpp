@@ -1,6 +1,7 @@
 #include "skeleton.h"
 #include "splitstring.h"
 #include "Eigen\Geometry"
+#include "Eigen\Eigen"
 #include <fstream>
 #include <cmath>
 
@@ -29,12 +30,51 @@ void Skeleton::loadSkeleton(std::string skelFileName)
             joints.push_back(temp);
         }
     }
-	std::vector<Eigen::Matrix4f> temp_matrix;
+	/*std::vector<Eigen::Matrix4f> temp_matrix;
 	for (unsigned i = 1; i < joints.size(); i++)
 	{
 		temp_matrix.push_back(Eigen::Matrix4f::Identity());
 	}
-	key_frame.push_back(temp_matrix);
+	key_frame.push_back(temp_matrix);*/
+}
+
+/*
+* Load Animation
+*/
+void Skeleton::loadAnimation(std::string skelFileName)
+{
+	key_frame.clear();
+	std::string line;
+	std::ifstream file(skelFileName.c_str());
+	if (file.is_open())
+	{
+		int number_of_line = 0;
+		while (std::getline(file, line))
+		{
+			std::vector<Eigen::Matrix4f> temp_m;
+			std::vector<std::string> temp_s;
+			splitstring splitStr(line);
+			temp_s = splitStr.split(' ');
+			for (unsigned i = 0; i < 17; i++)
+			{
+				float w = std::atof(temp_s[4 * i + 1].c_str());
+				float x = std::atof(temp_s[4 * i + 2].c_str());
+				float y = std::atof(temp_s[4 * i + 3].c_str());
+				float z = std::atof(temp_s[4 * i + 4].c_str());
+				Eigen::Quaternionf q(w, x, y, z);
+				Eigen::Matrix3f m3 = q.toRotationMatrix();
+				Eigen::Matrix4f m4;
+				m4 << m3(0, 0), m3(0, 1), m3(0, 2), 0,
+					m3(1, 0), m3(1, 1), m3(1, 2), 0,
+					m3(2, 0), m3(2, 1), m3(2, 2), 0,
+					0, 0, 0, 1;
+				temp_m.push_back(m4);
+				number_of_line++;
+			}
+			key_frame.push_back(temp_m);
+			std::cout << number_of_line << std::endl;
+		}
+	}
 }
 
 void Skeleton::convert_eigen_to_float_matrix(float *local_t)
@@ -45,13 +85,13 @@ void Skeleton::convert_eigen_to_float_matrix(float *local_t)
 void Skeleton::save_key_frame()
 {
 	std::vector<Eigen::Matrix4f> temp;
-	for (unsigned i = 1; i < joints.size(); i++)
+	for (unsigned i = 0; i < joints.size(); i++)
 	{
 		Eigen::Matrix4f temp_transform;
-		temp_transform << joints[i].local_t[0], joints[i].local_t[4], joints[i].local_t[8], joints[i].local_t[12],
-			joints[i].local_t[1], joints[i].local_t[5], joints[i].local_t[9], joints[i].local_t[13],
-			joints[i].local_t[2], joints[i].local_t[6], joints[i].local_t[10], joints[i].local_t[14],
-			joints[i].local_t[3], joints[i].local_t[7], joints[i].local_t[11], joints[i].local_t[15];
+		temp_transform << joints[i].local_t[0], joints[i].local_t[1], joints[i].local_t[2], joints[i].local_t[3],
+			joints[i].local_t[4], joints[i].local_t[5], joints[i].local_t[6], joints[i].local_t[7],
+			joints[i].local_t[8], joints[i].local_t[9], joints[i].local_t[10], joints[i].local_t[11],
+			joints[i].local_t[12], joints[i].local_t[13], joints[i].local_t[14], joints[i].local_t[15];
 		temp.push_back(temp_transform);
 	}
 	key_frame.push_back(temp);
@@ -64,7 +104,7 @@ void Skeleton::delete_key_frame()
 
 void Skeleton::clear_key_frame()
 {
-	key_frame.erase(key_frame.begin()+1, key_frame.end());
+	key_frame.clear();
 }
 
 std::vector<std::vector<Eigen::Quaternionf>> Skeleton::matrix_to_quaternion(std::vector<std::vector<Eigen::Matrix4f>> m_vector)
@@ -113,31 +153,20 @@ std::vector<std::vector<Eigen::Matrix4f>> quaternion_to_matrix(std::vector<std::
 void Skeleton::save_animation(std::string animationFileName)
 {
 	std::ofstream animation(animationFileName.c_str());
-	for (unsigned i = 0; i < key_frame.size(); i++)
+	key_frame_quaternion = matrix_to_quaternion(key_frame);
+	for (unsigned i = 0; i < key_frame_quaternion.size(); i++)
 	{
 		animation << i << " ";
-		for (unsigned j = 0; j < key_frame[i].size(); j++)
+		for (unsigned j = 0; j < key_frame_quaternion[i].size(); j++)
 		{
-			Eigen::Matrix3f temp_matrix;
-			temp_matrix << key_frame[i][j](0,0), key_frame[i][j](0,1), key_frame[i][j](0,2),
-				key_frame[i][j](1,0), key_frame[i][j](1,1), key_frame[i][j](1,2),
-				key_frame[i][j](2,0), key_frame[i][j](2,1), key_frame[i][j](2,2);
-			temp_matrix.normalize();
-			Eigen::Quaternionf temp(temp_matrix);
-			temp.normalize();
-			animation << temp.w() << " " << temp.x() << " " << temp.y() << " " << temp.z() << " ";
+			animation << key_frame_quaternion[i][j].w() << " " << key_frame_quaternion[i][j].x() << " " << key_frame_quaternion[i][j].y() << " " << key_frame_quaternion[i][j].z() << " ";
 		}
 		animation << std::endl;
 	}
 
 }
 
-/*
- * Load Animation
- */
-void Skeleton::loadAnimation(std::string skelFileName)
-{
-}
+
 
 
 /*

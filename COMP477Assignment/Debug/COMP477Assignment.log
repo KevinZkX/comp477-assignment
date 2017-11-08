@@ -1,34 +1,38 @@
 ﻿  glMain.cpp
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\defmesh.h(16): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(35): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(36): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(37): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(38): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(39): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(40): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(51): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(41): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(52): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(56): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(63): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(53): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(57): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(64): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(313): warning C4305: '+=': truncation from 'double' to 'float'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(322): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(323): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(417): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(424): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(463): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(483): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(492): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(516): warning C4018: '<': signed/unsigned mismatch
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(546): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(547): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(550): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(551): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(554): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(555): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(601): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(603): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(604): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(605): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(606): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
-  COMP477Assignment.vcxproj -> C:\Users\xiazo\documents\visual studio 2017\Projects\COMP477Assignment\Debug\COMP477Assignment.exe
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\euler.h(65): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(319): warning C4018: '<': signed/unsigned mismatch
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(340): warning C4018: '<': signed/unsigned mismatch
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(365): warning C4018: '<=': signed/unsigned mismatch
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(381): warning C4018: '<': signed/unsigned mismatch
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(399): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(408): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(409): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(511): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(518): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(557): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(577): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(586): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(610): warning C4018: '<': signed/unsigned mismatch
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(640): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(641): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(644): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(645): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(648): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(649): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(695): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(697): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(698): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(699): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\xiazo\documents\visual studio 2017\projects\comp477assignment\comp477assignment\glmain.cpp(700): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+  COMP477Assignment.vcxproj -> C:\Users\xiazo\Documents\Visual Studio 2017\Projects\COMP477Assignment\Debug\COMP477Assignment.exe
